@@ -1,14 +1,18 @@
 package xsgao.kafkaconnector;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import xsgao.kafkaconnector.core.KafkaReader;
 import xsgao.kafkaconnector.core.ReadingStrategy;
 import xsgao.kafkaconnector.core.StrategyFactory;
 import xsgao.kafkaconnector.metadata.MetadataLoader;
 import xsgao.kafkaconnector.model.TableSchema;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class App {
     public static void main(String[] args) {
@@ -16,29 +20,52 @@ public class App {
         String bootstrapServers = null;
         int moduleId = 0;
         Long offset = null;
+        Long timestamp = null;
+        boolean useRebalance = false;
 
         // Simple Linux-style argument parser
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
-                case "--metadata":
+                case "--metadata" -> {
                     if (i + 1 < args.length) metadataPath = args[++i];
-                    break;
-                case "--bootstrap":
+                }
+                case "--bootstrap" -> {
                     if (i + 1 < args.length) bootstrapServers = args[++i];
-                    break;
-                case "--module":
+                }
+                case "--module" -> {
                     if (i + 1 < args.length) moduleId = Integer.parseInt(args[++i]);
-                    break;
-                case "--offset":
-                    if (i + 1 < args.length) offset = Long.parseLong(args[++i]);
-                    break;
-                default:
-                    System.out.println("Unknown argument: " + args[i]);
+                }
+                case "--offset" -> {
+                    if (i + 1 < args.length) offset = Long.valueOf(args[++i]);
+                }
+                case "--timestamp" -> {
+                    if (i + 1 < args.length) {
+                        String tsValue = args[++i];
+                        try {
+                            // Try to parse as Epoch Millis first
+                            timestamp = Long.parseLong(tsValue);
+                        } catch (NumberFormatException e) {
+                            // Fallback to YYYY-MM-dd HH:mm:ss
+                            try {
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                                LocalDateTime ldt = LocalDateTime.parse(tsValue, formatter);
+                                timestamp = ldt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+                            } catch (DateTimeParseException ex) {
+                                System.err.println("Invalid timestamp format. Use epoch millis or 'yyyy-MM-dd HH:mm:ss'");
+                                return;
+                            }
+                        }
+                    }
+                }
+                case "--rebalance" -> {
+                    useRebalance = true;
+                }
+                default -> System.out.println("Unknown argument: " + args[i]);
             }
         }
 
         if (metadataPath == null || bootstrapServers == null) {
-            System.out.println("Usage: java -jar kafka-connector.jar --metadata <path> --bootstrap <servers> [--module <id>] [--offset <value>]");
+            System.out.println("Usage: java -jar kafka-connector.jar --metadata <path> --bootstrap <servers> [--module <id>] [--offset <value>] [--timestamp \"yyyy-MM-dd HH:mm:ss\"|epoch] [--rebalance]");
             return;
         }
 
@@ -52,6 +79,12 @@ public class App {
             Map<String, Object> params = new HashMap<>();
             if (offset != null) {
                 params.put("offset", offset);
+            }
+            if (timestamp != null) {
+                params.put("timestamp", timestamp);
+            }
+            if (useRebalance) {
+                params.put("useRebalanceListener", true);
             }
 
             // 3. Initialize Kafka Reader with Strategy

@@ -39,13 +39,12 @@ To transform a simple Kafka consumer into a high-performance, schema-aware data 
 ## 📚 Learning Roadmap
 This project is organized as a series of modules. Each module introduces a new Kafka concept, implements it in the code, and documents the findings.
 
-- [x] **Module 0**: Getting Started (Baseline)
-- [ ] **Module 1**: Offset Tracking & State Management
+- [x] **Module 0**: Getting Started (Baseline) $\rightarrow$ [docs/module-0.md](docs/module-0.md)
+- [x] **Module 1**: Offset Tracking $\rightarrow$ [docs/module-1.md](docs/module-1.md)
 - [ ] **Module 2**: High-Throughput & Parallel Architecture
-- [ ] **Module 3**: Reliability & DLQs (Dead Letter Queues)
+- [ ] **Module 3**: Reliability & DLQs (Dead Letter Queue)
 - [ ] **Module 4**: Predicate Pushdown
 - [ ] **Module 5**: Exactly-Once (EOS) Delivery
 - [ ] **Module 6**: Schema Evolution & Registry Integration
 - [ ] **Module 7**: Observability (Consumer Lag & Metrics)
 
-See the [Development Log](DEVELOPMENT_LOG.md) for the full curriculum and deep-dive documentation.
