@@ -41,7 +41,7 @@ This project is organized as a series of modules. Each module introduces a new K
 
 - [x] **Module 0**: Getting Started (Baseline) $\rightarrow$ [docs/module-0.md](docs/module-0.md)
 - [x] **Module 1**: Offset Tracking $\rightarrow$ [docs/module-1.md](docs/module-1.md)
-- [ ] **Module 2**: High-Throughput & Parallel Architecture
+- [x] **Module 2**: Parallel Downloading $\rightarrow$ [docs/module-2.md](docs/module-2.md)
 - [ ] **Module 3**: Reliability & DLQs (Dead Letter Queue)
 - [ ] **Module 4**: Predicate Pushdown
 - [ ] **Module 5**: Exactly-Once (EOS) Delivery

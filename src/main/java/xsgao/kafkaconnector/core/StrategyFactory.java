@@ -8,6 +8,7 @@ public class StrategyFactory {
         return switch (moduleId) {
             case 0 -> new DefaultReadingStrategy();
             case 1 -> new OffsetReadingStrategy();
+            case 2 -> new ParallelReadingStrategy();
             default -> throw new IllegalArgumentException("Unsupported module ID: " + moduleId);
         };
     }
