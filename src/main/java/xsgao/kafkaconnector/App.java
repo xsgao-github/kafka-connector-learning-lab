@@ -1,12 +1,12 @@
 package xsgao.kafkaconnector;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import xsgao.kafkaconnector.core.KafkaReader;
 import xsgao.kafkaconnector.core.ReadingStrategy;
@@ -22,6 +22,7 @@ public class App {
         Long offset = null;
         Long timestamp = null;
         boolean useRebalance = false;
+        boolean readDlq = false;
 
         // Simple Linux-style argument parser
         for (int i = 0; i < args.length; i++) {
@@ -60,6 +61,9 @@ public class App {
                 case "--rebalance" -> {
                     useRebalance = true;
                 }
+                case "--read_dlq" -> {
+                    readDlq = true;
+                }
                 default -> System.out.println("Unknown argument: " + args[i]);
             }
         }
@@ -85,6 +89,9 @@ public class App {
             }
             if (useRebalance) {
                 params.put("useRebalanceListener", true);
+            }
+            if (readDlq) {
+                params.put("read_dlq", true);
             }
 
             // 3. Initialize Kafka Reader with Strategy

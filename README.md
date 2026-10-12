@@ -42,9 +42,8 @@ This project is organized as a series of modules. Each module introduces a new K
 - [x] **Module 0**: Getting Started (Baseline) $\rightarrow$ [docs/module-0.md](docs/module-0.md)
 - [x] **Module 1**: Offset Tracking $\rightarrow$ [docs/module-1.md](docs/module-1.md)
 - [x] **Module 2**: Parallel Downloading $\rightarrow$ [docs/module-2.md](docs/module-2.md)
-- [ ] **Module 3**: Reliability & DLQs (Dead Letter Queue)
+- [x] **Module 3**: Reliability & DLQs (Dead Letter Queue) $\rightarrow$ [docs/module-3.md](docs/module-3.md)
 - [ ] **Module 4**: Predicate Pushdown
 - [ ] **Module 5**: Exactly-Once (EOS) Delivery
 - [ ] **Module 6**: Schema Evolution & Registry Integration
 - [ ] **Module 7**: Observability (Consumer Lag & Metrics)
-
