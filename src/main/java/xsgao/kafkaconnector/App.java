@@ -1,5 +1,6 @@
 package xsgao.kafkaconnector;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +24,7 @@ public class App {
         Long timestamp = null;
         boolean useRebalance = false;
         boolean readDlq = false;
+        String filter = null;
 
         // Simple Linux-style argument parser
         for (int i = 0; i < args.length; i++) {
@@ -44,7 +46,7 @@ public class App {
                         String tsValue = args[++i];
                         try {
                             // Try to parse as Epoch Millis first
-                            timestamp = Long.parseLong(tsValue);
+                            timestamp = Long.valueOf(tsValue);
                         } catch (NumberFormatException e) {
                             // Fallback to YYYY-MM-dd HH:mm:ss
                             try {
@@ -64,12 +66,18 @@ public class App {
                 case "--read_dlq" -> {
                     readDlq = true;
                 }
+                case "--filter" -> {
+                    if (i + 1 < args.length) {
+                        filter = args[++i];
+                    }
+                }
                 default -> System.out.println("Unknown argument: " + args[i]);
             }
         }
 
         if (metadataPath == null || bootstrapServers == null) {
-            System.out.println("Usage: java -jar kafka-connector.jar --metadata <path> --bootstrap <servers> [--module <id>] [--offset <value>] [--timestamp \"yyyy-MM-dd HH:mm:ss\"|epoch] [--rebalance]");
+            System.out.println("Usage: java -jar kafka-connector.jar --metadata <path> --bootstrap <servers> [--module <id>]"
+                    + " [--offset <value>] [--timestamp \"yyyy-MM-dd HH:mm:ss\"] [--rebalance] [--read_dlq] [--filter <expression>]");
             return;
         }
 
@@ -93,6 +101,9 @@ public class App {
             if (readDlq) {
                 params.put("read_dlq", true);
             }
+            if (filter != null) {
+                params.put("filter", filter);
+            }
 
             // 3. Initialize Kafka Reader with Strategy
             ReadingStrategy strategy = StrategyFactory.getStrategy(moduleId);
@@ -108,7 +119,7 @@ public class App {
                 System.out.println(row);
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

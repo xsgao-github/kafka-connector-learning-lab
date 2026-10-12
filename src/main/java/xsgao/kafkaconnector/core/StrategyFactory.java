@@ -10,6 +10,7 @@ public class StrategyFactory {
             case 1 -> new OffsetReadingStrategy();
             case 2 -> new ParallelReadingStrategy();
             case 3 -> new ReliableReadingStrategy();
+            case 4 -> new PredicateReadingStrategy();
             default -> throw new IllegalArgumentException("Unsupported module ID: " + moduleId);
         };
     }
