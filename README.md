@@ -45,5 +45,5 @@ This project is organized as a series of modules. Each module introduces a new K
 - [x] **Module 3**: Reliability & DLQs (Dead Letter Queue) $\rightarrow$ [docs/module-3.md](docs/module-3.md)
 - [x] **Module 4**: Predicate Pushdown $\rightarrow$ [docs/module-4.md](docs/module-4.md)
 - [x] **Module 5**: Exactly-Once (EOS) Delivery $\rightarrow$ [docs/module-5.md](docs/module-5.md)
-- [ ] **Module 6**: Schema Evolution & Registry Integration
+- [x] **Module 6**: Schema Evolution & Registry Integration $\rightarrow$ [docs/module-6.md](docs/module-6.md)
 - [ ] **Module 7**: Observability (Consumer Lag & Metrics)

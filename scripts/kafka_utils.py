@@ -67,12 +67,16 @@ def ensure_topic_exists(topic_name, num_partitions=DEFAULT_PARTITIONS):
     except Exception as e:
         logger.error(f"Failed to ensure topic '{topic_name}': {e}")
 
-def send_string_records(topic, records):
+def send_string_records(topic, records, with_header=False):
     """Publishes string records to a topic via docker exec kafka-console-producer."""
+    # Simply setting parse.headers=true is enough (defaults to \t for headers delimiter)
+    header_flags = " --property parse.headers=true" if with_header else ""
+    
     cmd = (
         f"docker exec -i {KAFKA_CONTAINER} kafka-console-producer "
         f"--bootstrap-server {INTERNAL_BOOTSTRAP_SERVER} "
-        f"--topic {topic} "
+        f"--topic {topic}"
+        f"{header_flags} "
         f"--property parse.key=true "
         f"--property key.separator=:"
     )

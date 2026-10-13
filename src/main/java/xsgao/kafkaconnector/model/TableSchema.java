@@ -10,6 +10,7 @@ public class TableSchema {
     private String tableName;
     private String topicName;
     private List<ColumnDefinition> columns;
+    private Map<String, List<ColumnDefinition>> versions;
 
     public TableSchema() {}
 
@@ -27,6 +28,9 @@ public class TableSchema {
 
     public List<ColumnDefinition> getColumns() { return columns; }
     public void setColumns(List<ColumnDefinition> columns) { this.columns = columns; }
+
+    public Map<String, List<ColumnDefinition>> getVersions() { return versions; }
+    public void setVersions(Map<String, List<ColumnDefinition>> versions) { this.versions = versions; }
 
     public static class ColumnDefinition {
         private String name;
