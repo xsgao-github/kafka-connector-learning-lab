@@ -11,6 +11,7 @@ public class StrategyFactory {
             case 2 -> new ParallelReadingStrategy();
             case 3 -> new ReliableReadingStrategy();
             case 4 -> new PredicateReadingStrategy();
+            case 5 -> new ExactlyOnceReadingStrategy();
             default -> throw new IllegalArgumentException("Unsupported module ID: " + moduleId);
         };
     }

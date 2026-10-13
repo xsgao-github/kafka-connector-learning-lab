@@ -25,6 +25,8 @@ public class App {
         boolean useRebalance = false;
         boolean readDlq = false;
         String filter = null;
+        String deliveryMode = null;
+        boolean crash = false;
 
         // Simple Linux-style argument parser
         for (int i = 0; i < args.length; i++) {
@@ -71,6 +73,13 @@ public class App {
                         filter = args[++i];
                     }
                 }
+                case "--mode" -> {
+                    // Delivery guarantee mode: "at_most_once", "at_least_once", "exactly_once"
+                    deliveryMode = args[++i];
+                }
+                case "--crash" -> {
+                    crash = true;
+                }
                 default -> System.out.println("Unknown argument: " + args[i]);
             }
         }
@@ -103,6 +112,12 @@ public class App {
             }
             if (filter != null) {
                 params.put("filter", filter);
+            }
+            if (deliveryMode != null) {
+                params.put("mode", deliveryMode);
+            }
+            if (crash) {
+                params.put("crash", crash);
             }
 
             // 3. Initialize Kafka Reader with Strategy
