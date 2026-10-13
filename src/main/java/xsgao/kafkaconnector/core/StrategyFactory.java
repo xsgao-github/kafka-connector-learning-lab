@@ -15,6 +15,7 @@ public class StrategyFactory {
             case 6 -> new SchemaEvolutionStrategy();
             case 7 -> new ObservabilityStrategy();
             case 8 -> new BackpressureStrategy();
+            case 9 -> new GracefulShutdownStrategy();
             default -> throw new IllegalArgumentException("Unsupported module ID: " + moduleId);
         };
     }
