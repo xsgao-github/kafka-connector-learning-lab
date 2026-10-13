@@ -47,3 +47,4 @@ This project is organized as a series of modules. Each module introduces a new K
 - [x] **Module 5**: Exactly-Once (EOS) Delivery $\rightarrow$ [docs/module-5.md](docs/module-5.md)
 - [x] **Module 6**: Schema Evolution & Registry Integration $\rightarrow$ [docs/module-6.md](docs/module-6.md)
 - [x] **Module 7**: Observability (Consumer Lag & Metrics) $\rightarrow$ [docs/module-7.md](docs/module-7.md)
+- [x] **Module 8**: Backpressure (pause() / resume()) $\rightarrow$ [docs/module-8.md](docs/module-8.md)

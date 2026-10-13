@@ -19,6 +19,7 @@ import xsgao.kafkaconnector.model.TableSchema;
  */
 public abstract class AbstractReadingStrategy implements ReadingStrategy {
 
+    private static final int SIMULATED_SINK_DELAY_MS = 5;   // Simulated downstream processing latency
 
     /**
      * Get partition resolution using an existing consumer instance.
@@ -114,6 +115,27 @@ public abstract class AbstractReadingStrategy implements ReadingStrategy {
         } catch (NumberFormatException e) {
             System.err.println("ERROR: Failed to cast value [" + value + "] to type " + type);
             return null;
+        }
+    }
+
+    /**
+     * Simulates downstream sink processing latency (e.g., database writes, HTTP calls).
+     *
+     * @param recordCount       The number of records processed in this batch.
+     * @return true if processing completed normally; false if interrupted during shutdown.
+     */
+    protected boolean simulateSinkProcessing(int recordCount) {
+        if (recordCount <= 0) {
+            return true;
+        }
+
+        try {
+            Thread.sleep(recordCount * SIMULATED_SINK_DELAY_MS);
+            return true;
+        } catch (InterruptedException e) {
+            // Restore interrupted status so shutdown hooks / parent loops can exit cleanly
+            Thread.currentThread().interrupt();
+            return false;
         }
     }
 }

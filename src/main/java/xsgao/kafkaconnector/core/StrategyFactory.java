@@ -14,6 +14,7 @@ public class StrategyFactory {
             case 5 -> new ExactlyOnceReadingStrategy();
             case 6 -> new SchemaEvolutionStrategy();
             case 7 -> new ObservabilityStrategy();
+            case 8 -> new BackpressureStrategy();
             default -> throw new IllegalArgumentException("Unsupported module ID: " + moduleId);
         };
     }
