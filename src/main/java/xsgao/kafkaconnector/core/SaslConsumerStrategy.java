@@ -53,7 +53,7 @@ public class SaslConsumerStrategy extends AbstractReadingStrategy {
         // containerized clients can supply kafka:9093 when that listener is advertised internally.
         String bootstrapServers = props.getProperty(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG);
         if (bootstrapServers == null || bootstrapServers.isBlank()) {
-            throw new IllegalArgumentException("A Kafka bootstrap server is required for Module 12");
+            throw new IllegalArgumentException("A Kafka bootstrap server is required for Module 11");
         }
 
         // 3. Inject SASL/PLAIN Authentication Settings
@@ -72,7 +72,7 @@ public class SaslConsumerStrategy extends AbstractReadingStrategy {
 
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props)) {
             consumer.subscribe(Collections.singletonList(topicName));
-            System.out.printf("[Module 12] Subscribed to topic '%s' on %s over SASL_PLAINTEXT as user 'alice'...%n", topicName, bootstrapServers);
+            System.out.printf("[Module 11] Subscribed to topic '%s' on %s over SASL_PLAINTEXT as user 'alice'...%n", topicName, bootstrapServers);
 
             long deadline = System.currentTimeMillis() + 10000;
             while (results.size() < limit && System.currentTimeMillis() < deadline) {
