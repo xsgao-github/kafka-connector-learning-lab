@@ -49,3 +49,4 @@ This project is organized as a series of modules. Each module introduces a new K
 - [x] **Module 7**: Observability (Consumer Lag & Metrics) $\rightarrow$ [docs/module-7.md](docs/module-7.md)
 - [x] **Module 8**: Backpressure (pause() / resume()) $\rightarrow$ [docs/module-8.md](docs/module-8.md)
 - [x] **Module 9**: Graceful Shutdown $\rightarrow$ [docs/module-9.md](docs/module-9.md)
+- [x] **Module 10**: Consumer Pool $\rightarrow$ [docs/module-10.md](docs/module-10.md)

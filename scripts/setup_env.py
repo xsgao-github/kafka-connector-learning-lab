@@ -2,19 +2,23 @@ from kafka_utils import (
     delete_topics_if_exist,
     ensure_topic_exists,
     send_string_records,
-    MAIN_TOPIC,
-    DLQ_TOPIC
+    USERS_TOPIC,
+    USERS_DLQ_TOPIC,
+    ORDERS_TOPIC,
+    ORDERS_DLQ_TOPIC,
 )
 
 def setup_environment():
-    print(f"--- Resetting & Initializing Kafka Environment ('{MAIN_TOPIC}') ---")
+    print(f"--- Resetting & Initializing Kafka Environment ('{USERS_TOPIC}, {ORDERS_TOPIC}') ---")
     
     # 1. Safely clear existing topics without throw errors if absent
-    delete_topics_if_exist([MAIN_TOPIC, DLQ_TOPIC])
+    delete_topics_if_exist([USERS_TOPIC, USERS_DLQ_TOPIC, ORDERS_TOPIC, ORDERS_DLQ_TOPIC])
 
     # 2. Re-create clean topics
-    ensure_topic_exists(MAIN_TOPIC)
-    ensure_topic_exists(DLQ_TOPIC)
+    ensure_topic_exists(USERS_TOPIC)
+    ensure_topic_exists(USERS_DLQ_TOPIC)
+    ensure_topic_exists(ORDERS_TOPIC)
+    ensure_topic_exists(ORDERS_DLQ_TOPIC)
 
     # 3. Seed baseline 5 records (IDs 1-5)
     initial_records = [
@@ -24,8 +28,8 @@ def setup_environment():
         "4:4,Diana,40.0"
     ]
 
-    sent_count = send_string_records(MAIN_TOPIC, initial_records)
-    print(f"Environment reset complete. Seeded {sent_count}/5 baseline records to '{MAIN_TOPIC}'.")
+    sent_count = send_string_records(USERS_TOPIC, initial_records)
+    print(f"Environment reset complete. Seeded {sent_count} baseline records to '{USERS_TOPIC}'.")
 
 if __name__ == "__main__":
     setup_environment()

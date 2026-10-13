@@ -18,12 +18,7 @@ import xsgao.kafkaconnector.model.TableSchema;
 public class GracefulShutdownStrategy extends AbstractReadingStrategy {
 
     @Override
-    public List<List<Object>> read(
-            String tableName,
-            int limit,
-            Properties consumerProps,
-            Map<String, TableSchema> tableToSchema,
-            Map<String, Object> params) {
+    public List<List<Object>> read(String tableName, int limit, Properties consumerProps, Map<String, TableSchema> tableToSchema, Map<String, Object> params) {
 
         TableSchema tableSchema = tableToSchema.get(tableName);
         if (tableSchema == null) {
