@@ -50,3 +50,4 @@ This project is organized as a series of modules. Each module introduces a new K
 - [x] **Module 8**: Backpressure (pause() / resume()) $\rightarrow$ [docs/module-8.md](docs/module-8.md)
 - [x] **Module 9**: Graceful Shutdown $\rightarrow$ [docs/module-9.md](docs/module-9.md)
 - [x] **Module 10**: Consumer Pool $\rightarrow$ [docs/module-10.md](docs/module-10.md)
+- [x] **Module 11**: SASL Authentication $\rightarrow$ [docs/module-11.md](docs/module-11.md)

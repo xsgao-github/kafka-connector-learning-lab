@@ -17,6 +17,7 @@ public class StrategyFactory {
             case 8 -> new BackpressureStrategy();
             case 9 -> new GracefulShutdownStrategy();
             case 10 -> new DedicatedTopicConsumerStrategy();
+            case 11 -> new SaslConsumerStrategy();
             default -> throw new IllegalArgumentException("Unsupported module ID: " + moduleId);
         };
     }
